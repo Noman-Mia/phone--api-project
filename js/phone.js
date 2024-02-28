@@ -12,8 +12,14 @@ const displayPhones = phones => {
 const phoneContainer = document.getElementById("phone-container")
 // data will be empty 
 phoneContainer.textContent = "";  
-//display 1st 10 phone
-phones = phones.slice(0,10);
+//display 1st 12 phone
+const showAllContainer = document.getElementById("show-all-container")
+if(phones.length > 12){
+showAllContainer.classList.remove("hidden")
+}else{
+    showAllContainer.classList.add("hidden")
+}
+phones = phones.slice(0,12);
 phones.forEach(phone => {
 console.log(phone);
 //2.create a div in daynamic
@@ -32,8 +38,9 @@ phoneCard.innerHTML = `
 `;
 //append the child 
 phoneContainer.appendChild(phoneCard);
-
+toggleLoadingSpinner(false);
 });
+
 }
 
 //handle search
@@ -45,8 +52,20 @@ const handleSearch = () => {
 
 
 const handleSearch2 = () =>{
+    toggleLoadingSpinner(true);
     const searchField = document.getElementById("search-field2");
     const searchText = searchField.value;
     loadPhone(searchText);
+}
+
+const toggleLoadingSpinner = (isLoading) =>{
+    const loadingSpinner = document.getElementById("loading-spinner")
+    loadingSpinner.classList.remove("hidden")
+    if(isLoading){
+    loadingSpinner.classList.remove("hidden")
+    }else{
+        loadingSpinner.classList.add("hidden")
+    }
+
 }
 // loadPhone();
